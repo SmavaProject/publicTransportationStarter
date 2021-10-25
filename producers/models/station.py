@@ -18,8 +18,8 @@ class Station(Producer):
 
     #
     # TODO: Define this value schema in `schemas/station_value.json, then uncomment the below
-    #
-    #value_schema = avro.load(f"{Path(__file__).parents[0]}/schemas/arrival_value.json")
+    # DONE!
+    value_schema = avro.load(f"{Path(__file__).parents[0]}/schemas/arrival_value.json")
 
     def __init__(self, station_id, name, color, direction_a=None, direction_b=None):
         self.name = name
@@ -41,9 +41,9 @@ class Station(Producer):
         super().__init__(
             topic_name,
             key_schema=Station.key_schema,
-            # TODO: value_schema=Station.value_schema, # TODO: Uncomment once schema is defined
-            # TODO: num_partitions=???,
-            # TODO: num_replicas=???,
+            value_schema=Station.value_schema, # TODO: Uncomment once schema is defined
+            num_partitions=1,
+            num_replicas=1,
         )
 
         self.station_id = int(station_id)
